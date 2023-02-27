@@ -4,6 +4,7 @@ namespace App\Http\Requests\Api\V1\Admin\Product;
 
 use App\Enums\UserRoleEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class UpdateProductRequest extends FormRequest
 {
@@ -11,6 +12,13 @@ class UpdateProductRequest extends FormRequest
     {
         return auth()->check() == true &&
             auth()->user()->role->value == UserRoleEnum::ADMIN->value;
+    }
+
+    protected function prepareForValidation()
+    {
+        return $this->merge([
+            'slug' => Str::slug(request()->input('slug'))
+        ]);
     }
 
     public function rules(): array

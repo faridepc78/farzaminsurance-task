@@ -35,7 +35,7 @@ class ProductController extends Controller
         $product = $this->productRepository->create(my_filter($request->validationData()));
 
         return $this->success_response(new ProductResource($product),
-            'product has been successfully created');
+            'product has been successfully created', 201);
     }
 
     public function show(Product $product)

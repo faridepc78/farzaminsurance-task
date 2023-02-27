@@ -4,6 +4,7 @@ namespace App\Http\Requests\Api\V1\Admin\Product;
 
 use App\Enums\UserRoleEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class CreateProductRequest extends FormRequest
 {
@@ -16,7 +17,8 @@ class CreateProductRequest extends FormRequest
     protected function prepareForValidation()
     {
         return $this->merge([
-            'code' => make_token(10)
+            'code' => make_token(10),
+            'slug' => Str::slug(request()->input('slug'))
         ]);
     }
 

@@ -32,7 +32,7 @@ class PropertyController extends Controller
         create(my_filter($request->validated()));
 
         return $this->success_response(new PropertyResource($property),
-            'property has been successfully created');
+            'property has been successfully created', 201);
     }
 
     public function show(Property $property)
