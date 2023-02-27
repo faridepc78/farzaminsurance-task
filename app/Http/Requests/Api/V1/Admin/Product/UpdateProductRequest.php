@@ -18,7 +18,12 @@ class UpdateProductRequest extends FormRequest
         $id = request()->product->id;
 
         return [
-
+            'name' => ['nullable', 'string', 'max:150', 'unique:products,name,' . $id],
+            'slug' => ['nullable', 'string', 'max:150', 'unique:products,slug,' . $id],
+            'image' => ['nullable', 'mimes:jpg,png,jpeg', 'max:2048'],
+            'price' => ['nullable', 'numeric', 'between:1000,1000000000'],
+            'discount' => ['nullable', 'numeric', 'between:1,90'],
+            'description' => ['nullable', 'string', 'max:1000000']
         ];
     }
 }

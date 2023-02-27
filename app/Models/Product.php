@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {
@@ -31,13 +31,26 @@ class Product extends Model
             'description'
         ];
 
+    protected $appends =
+        [
+            'final_price'
+        ];
+
     public function image(): BelongsTo
     {
         return $this->belongsTo(Media::class, 'image_id')->withDefault();
     }
 
-    public function properties(): HasMany
+    public function properties(): BelongsToMany
     {
-        return $this->hasMany(Property::class, 'property_id');
+        return $this->belongsToMany(Property::class, 'product_properties');
+    }
+
+    public function getFinalPriceAttribute()
+    {
+        if ($this->discount != null)
+            return round($this->price - ($this->price * ($this->discount / 100)));
+
+        return $this->price;
     }
 }

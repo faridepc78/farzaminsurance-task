@@ -13,7 +13,7 @@ class ProductFactory extends Factory
             'slug' => fake()->unique()->slug(),
             'code' => make_token(10),
             'price' => fake()->numberBetween(1000, 1000000),
-            'discount' => fake()->numberBetween(1, 100),
+            'discount' => fake()->numberBetween(1, 90),
             'description' => fake()->text(1000)
         ];
     }

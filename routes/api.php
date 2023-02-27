@@ -30,7 +30,14 @@ Route::group(['prefix' => 'v1/admin', 'as' => 'api.v1.admin.',
 
     Route::apiResource('properties', 'PropertyController');
 
-    Route::apiResource('products', 'ProductController');
+    Route::apiResource('products', 'ProductController')
+        ->except('update');
+
+    Route::post('products/{product}', 'ProductController@update')
+        ->name('products.update');
+
+    Route::post('products/properties/save/{product}', 'ProductController@save_properties')
+        ->name('products.properties.save');
 
 });
 

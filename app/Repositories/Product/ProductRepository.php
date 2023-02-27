@@ -14,4 +14,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         $this->model = $model;
     }
+
+    public function save_properties(Product $product, array $data): array
+    {
+        return $product->properties()->sync($data);
+    }
 }
